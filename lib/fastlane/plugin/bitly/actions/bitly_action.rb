@@ -11,6 +11,7 @@ module Fastlane
 
       def self.run(params)
         UI.message("The bitly plugin is working!")
+        token = params[:token]
         long_url = params[:long_url]
         client = Bitly::API::Client.new(token: token)
         bitlink = client.shorten(long_url: long_url)

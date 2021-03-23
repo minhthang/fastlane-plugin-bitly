@@ -1,11 +1,22 @@
 require 'fastlane/action'
 require_relative '../helper/bitly_helper'
+require 'bitly'
 
 module Fastlane
   module Actions
     class BitlyAction < Action
+      module SharedValues
+        BITLY_SHORTLINK_OUTPUT ||= :BITLY_SHORTLINK_OUTPUT
+      end
+
       def self.run(params)
         UI.message("The bitly plugin is working!")
+        long_url = params[:long_url]
+        client = Bitly::API::Client.new(token: token)
+        bitlink = client.shorten(long_url: long_url)
+        shortlink = bitlink.link
+        Actions.lane_context[SharedValues::BITLY_SHORTLINK_OUTPUT] = shortlink
+        ENV[SharedValues::BITLY_SHORTLINK_OUTPUT.to_s] = shortlink
       end
 
       def self.description

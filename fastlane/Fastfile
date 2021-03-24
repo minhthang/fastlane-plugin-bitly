@@ -1,3 +1,4 @@
 lane :test do
-  bitly
+  bitly(token: "788dd2baa128327143f1777fe691e6c2dda225ac", group_guid: "Bl3n90qt5rc", long_url: "https://github.com/minhthang/fastlane-plugin-bitly")
+  puts(ENV['BITLY_SHORTLINK_OUTPUT'])
 end
